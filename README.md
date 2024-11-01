@@ -28,7 +28,8 @@ You can configure `bruin-setup-action` with these parameters:
 
 | Parameter      | Description                                        | Default            |
 |:---------------|:---------------------------------------------------|:-------------------|
-| `version`      | The version of the [`bruin` CLI][bruin-cli] to install | [`v0.11.35`][version] |
+| `version`      | The version of the [`bruin` CLI][bruin-cli] to install | [`0.11.52`][version] |
+| `install_only`      | Is it a install only action | [`true`][true] |
 
 > These parameters are derived from [`action.yml`](./action.yml). <br>
 #### Version
@@ -48,11 +49,11 @@ Use the `version` parameter to pin to a specific version:
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  # Installs version 1.46.0
+  # Installs version 0.11.52
   - uses: y-bruin/bruin-setup-action@v1
     with:
-      version: 1.46.0
-  # Should output 1.46.0
+      version: 0.11.52
+  # Should output 0.11.52
   - run: bruin --version
 ```
 
@@ -62,7 +63,7 @@ recommended:
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  - uses: y-bruin/bruin-setup-action@v1.46.0
+  - uses: y-bruin/bruin-setup-action@v1
     with:
       version: latest
   - run: bruin --version

@@ -46,19 +46,25 @@ export async function getBruin(
       os.arch(),
     );
   } else {
-    // For Windows, we only download the .exe for `bruin` CLI becasue we do not create `.tar.gz`
+
+     // For Windows, we only download the .exe for `bruin` CLI becasue we do not create `.tar.gz`
     // bundles for Windows releases.
     const downloadPath = await tc.downloadTool(
       downloadURL,
-      "C:\\Users\\runneradmin\\bruin-download\\bruin.exe",
+      "C:\\Users\\runneradmin\\bruin-download\\bruin.zip",
     );
+
+       
     core.info(
       `Successfully downloaded bruin version "${version}" from ${downloadURL} to ${downloadPath}`,
     );
 
+    const extractPath = await tc.extractZip(downloadPath);
+    core.info(`Successfully extracted bruin to ${extractPath}`);
+    
     core.info("Adding bruin to the cache...");
     cacheDir = await tc.cacheDir(
-      path.dirname(downloadPath),
+      path.dirname(extractPath),
       "bruin",
       version,
       os.arch(),
@@ -114,7 +120,7 @@ async function getDownloadURL(
 
   // For Windows, we only download the .exe for `bruin` CLI
   if (platform === "Windows") {
-    assetName = `bruin-${platform}-${architecture}.exe`;
+    assetName = `bruin-${platform}-${architecture}.zip`;
   } else {
     assetName = `bruin-${platform}-${architecture}.tar.gz`;
   }
