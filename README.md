@@ -30,7 +30,7 @@ You can configure `bruin-setup-action` with these parameters:
 |:---------------|:---------------------------------------------------|:-------------------|
 | `version`      | The version of the [`bruin` CLI][bruin-cli] to install | [`0.11.52`][version] |
 | `install_only` | Is it a install only action | [`true`][true] |
-| `command`      | The command to execute.                            | [`validate`]       |
+| `command`      | The command to execute.                            | [`validate`, `run`, `format`, `lineage`] |
 | `args`         | Arguments for the command.                         | `''`               |
 
 > These parameters are derived from [`action.yml`](./action.yml). <br>
