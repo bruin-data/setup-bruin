@@ -13,6 +13,14 @@ inputs:
     description: Install only action.
     required: false
     default: 'false'
+  command:
+    description: The command to execute.
+    required: false
+    default: 'validate'
+  args:
+    description: Arguments for the command.
+    required: false
+    default: ''
 runs:
   using: "node20"
   main: "./dist/main.js"
