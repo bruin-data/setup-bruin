@@ -1,0 +1,14 @@
+name: "bruin-setup"
+description: >
+  Install bruin for use in other jobs.
+branding:
+  icon: play
+  color: blue
+inputs:
+  version:
+    description: The version of bruin to set up.
+    required: false
+    default: '0.11.53'
+runs:
+  using: "node20"
+  main: "./dist/main.js"
