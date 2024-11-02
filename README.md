@@ -67,3 +67,5 @@ steps:
       version: latest
   - run: bruin --version
 ```
+
+For more example, please check the repository [y-bruin/bruin-dev](https://github.com/y-bruin/bruin-dev).
