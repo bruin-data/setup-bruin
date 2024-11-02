@@ -2,3 +2,6 @@
 .tmp/
 .vscode/
 node_modules/
+
+.bruin.yml
+logs/*.log
