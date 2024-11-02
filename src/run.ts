@@ -35,15 +35,13 @@ async function runSetup(): Promise<null | Error> {
     };
   }
 
-  const githubToken = core.getInput("github_token");
-  if (githubToken === "") {
-    core.warning(
-      "No github_token supplied, API requests will be subject to stricter rate limiting",
-    );
+  const installOnly  = core.getInput("install_only");
+  if (installOnly) {
+    core.info("It's a install Only action")
   }
 
   core.info(`Setting up bruin version "${version}"`);
-  const installDir = await getBuf(version, githubToken);
+  const installDir = await getBruin(version, installOnly);
   if (isError(installDir)) {
     return installDir;
   }
@@ -65,5 +63,8 @@ async function runSetup(): Promise<null | Error> {
   core.info(`Successfully setup bruin version ${version}`);
   core.info(cp.execSync(`${binaryPath} --version`).toString());
 
+  if (installOnly != "true") {
+    
+  }
   return null;
 }

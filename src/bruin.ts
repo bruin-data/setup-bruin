@@ -12,7 +12,7 @@ const versionPrefix = "v";
 
 export async function getBruin(
   version: string,
-  githubToken: string,
+  install_only: string,
 ): Promise<string | Error> {
   const binaryPath = tc.find("bruin", version, os.arch());
   if (binaryPath !== "") {
@@ -21,7 +21,7 @@ export async function getBruin(
   }
 
   core.info(`Resolving the download URL for the current platform...`);
-  const downloadURL = await getDownloadURL(version, githubToken);
+  const downloadURL = await getDownloadURL(version);
   if (isError(downloadURL)) {
     return downloadURL;
   }
@@ -74,11 +74,10 @@ export async function getBruin(
   return cacheDir;
 }
 
-// getDownloadURL resolves Buf's Github download URL for the
+// getDownloadURL resolves Bruin's Github download URL for the
 // current architecture and platform.
 async function getDownloadURL(
-  version: string,
-  githubToken: string,
+  version: string
 ): Promise<string | Error> {
   let architecture = "";
   switch (os.arch()) {
@@ -92,7 +91,7 @@ async function getDownloadURL(
       break;
     default:
       return {
-        message: `The "${os.arch()}" architecture is not supported with a Buf release.`,
+        message: `The "${os.arch()}" architecture is not supported with a Bruin release.`,
       };
   }
   let platform = "";
@@ -110,7 +109,7 @@ async function getDownloadURL(
       break;
     default:
       return {
-        message: `The "${os.platform()}" platform is not supported with a Buf release.`,
+        message: `The "${os.platform()}" platform is not supported with a Bruin release.`,
       };
   }
   // The asset name is determined by the bruin release structure found at:
@@ -128,7 +127,6 @@ async function getDownloadURL(
     ? new HttpsProxyAgent(process.env.http_proxy)
     : undefined;
   const octokit = new Octokit({
-    auth: githubToken,
     request: {
       agent: requestAgent,
     },
@@ -148,7 +146,7 @@ async function getDownloadURL(
       }
     }
     return {
-      message: `Unable to find Buf version "${version}" for platform "${platform}" and architecture "${architecture}".`,
+      message: `Unable to find Bruin version "${version}" for platform "${platform}" and architecture "${architecture}".`,
     };
   }
   const tag = releaseTagForVersion(version);
@@ -166,7 +164,7 @@ async function getDownloadURL(
     }
   }
   return {
-    message: `Unable to find Buf version "${version}" for platform "${platform}" and architecture "${architecture}".`,
+    message: `Unable to find Bruin version "${version}" for platform "${platform}" and architecture "${architecture}".`,
   };
 }
 
@@ -174,8 +172,5 @@ async function getDownloadURL(
 // Github releases include the 'v' prefix, but the `bruin --version` does not. Thus, we permit
 // both versions, e.g. v0.38.0 and 0.38.0.
 function releaseTagForVersion(version: string): string {
-  if (version.indexOf(versionPrefix) === 0) {
-    return version;
-  }
-  return versionPrefix + version;
+  return version;
 }
