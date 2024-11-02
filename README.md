@@ -15,7 +15,7 @@ steps:
   # Run `git checkout`
   - uses: actions/checkout@v2
   # Install the `bruin` CLI
-  - uses: y-bruin/bruin-setup-action@v1
+  - uses: y-bruin/bruin-setup-action@main
   # Ensure that `bruin` is installed
   - run: bruin --version
 ```
