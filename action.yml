@@ -8,7 +8,7 @@ inputs:
   version:
     description: The version of bruin to set up.
     required: false
-    default: '0.11.53'
+    default: 'latest'
 runs:
   using: "node20"
   main: "./dist/main.js"
