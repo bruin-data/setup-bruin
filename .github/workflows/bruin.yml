@@ -1,0 +1,27 @@
+name: Bruin Setup Action Test
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v4
+      # Installs latest
+      - run: bruin init
+      - uses: bruin-data/bruin-setup-action@main
+      - run: bruin validate ./bruin-pipeline/
+        name: Validate Pipeline
+      - run: bruin format ./bruin-pipeline/
+        name: Format Pipeline
+      - name: Lineage
+        run: |
+          bruin lineage bruin-pipeline/assets/example.sql
+          bruin lineage bruin-pipeline/assets/pythonsample/country_list.py
