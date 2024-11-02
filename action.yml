@@ -21,6 +21,7 @@ inputs:
     description: Arguments for the command.
     required: false
     default: ''
+
 runs:
   using: "node20"
   main: "./dist/main.js"
