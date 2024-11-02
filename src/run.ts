@@ -7,6 +7,23 @@ import * as exec from "@actions/exec";
 import { getBruin } from "./bruin";
 import { Error, isError } from "./error";
 
+// Status is the status of a command execution.
+enum Status {
+  // Unknown is the default status.
+  Unknown = 0,
+  // Passed is the status of a successful command execution.
+  Passed,
+  // Failed is the status of a failed command execution.
+  Failed,
+  // Skipped is the status of a skipped command execution.
+  Skipped,
+}
+
+// Result is the result of a command execution.
+interface Result extends exec.ExecOutput {
+  status: Status;
+}
+
 export async function run(): Promise<void> {
   try {
     const result = await runSetup();
@@ -89,9 +106,13 @@ async function runSetup(): Promise<null | Error> {
 }
 
 
-async function runCommand(bruinPath: string, command: string, args: string) {
+async function runCommand(bruinPath: string, command: string, args: string) : Promise<Result>  {
   core.debug("Running command")
-  await exec.exec(bruinPath, [command, args]);
+  const output = await exec.getExecOutput(bruinPath, [command, args], {})
+  return {
+    ...output,
+    status: output.exitCode == 0 ? Status.Passed : Status.Failed,
+  }
 }
 
 // getEnv returns the case insensitive value of the environment variable.
