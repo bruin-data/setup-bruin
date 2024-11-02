@@ -17,6 +17,9 @@ export async function getBruin(
 
   core.info(`Resolving the download URL for the current platform...`);
   const downloadURL = await getDownloadURL(version);
+
+  core.debug(`Download URL resolved: ${downloadURL}`);
+
   if (isError(downloadURL)) {
     return downloadURL;
   }
