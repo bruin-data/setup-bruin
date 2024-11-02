@@ -15,7 +15,7 @@ steps:
   # Run `git checkout`
   - uses: actions/checkout@v2
   # Install the `bruin` CLI
-  - uses: y-bruin/bruin-setup-action@main
+  - uses: bruin-data/bruin-setup-action@main
   # Ensure that `bruin` is installed
   - run: bruin --version
 ```
@@ -39,7 +39,7 @@ If `version` is unspecified, the latest version of `bruin` is installed:
 steps:
   - uses: actions/checkout@v2
   # Installs latest
-  - uses: y-bruin/bruin-setup-action@main
+  - uses: bruin-data/bruin-setup-action@main
   - run: bruin --version
 ```
 
@@ -49,7 +49,7 @@ Use the `version` parameter to pin to a specific version:
 steps:
   - uses: actions/checkout@v2
   # Installs version 0.11.52
-  - uses: y-bruin/bruin-setup-action@main
+  - uses: bruin-data/bruin-setup-action@main
     with:
       version: 0.11.52
   # Should output 0.11.52
@@ -62,7 +62,7 @@ recommended:
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  - uses: y-bruin/bruin-setup-action@main
+  - uses: bruin-data/bruin-setup-action@main
     with:
       version: latest
   - run: bruin --version
