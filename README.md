@@ -68,4 +68,21 @@ steps:
   - run: bruin --version
 ```
 
-For more example, please check the repository [y-bruin/bruin-dev](https://github.com/y-bruin/bruin-dev).
+Example 
+```yaml
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    # Installs latest
+    - uses: bruin-data/bruin-setup-action@main
+    - run: bruin validate ./bruin-pipeline/
+      name: Validate Pipeline
+    - run: bruin format ./bruin-pipeline/
+      name: Format Pipeline
+    - name: Lineage
+      run: |
+        bruin lineage bruin-pipeline/assets/example.sql
+        bruin lineage bruin-pipeline/assets/pythonsample/country_list.py
+```
