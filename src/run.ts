@@ -3,6 +3,7 @@ import * as os from "os";
 import * as path from "path";
 import * as core from "@actions/core";
 import * as io from "@actions/io";
+import * as exec from "@actions/exec";
 import { getBruin } from "./bruin";
 import { Error, isError } from "./error";
 
@@ -41,7 +42,7 @@ async function runSetup(): Promise<null | Error> {
   }
 
   core.info(`Setting up bruin version "${version}"`);
-  const installDir = await getBruin(version, installOnly);
+  const installDir = await getBruin(version);
   if (isError(installDir)) {
     return installDir;
   }
@@ -64,7 +65,31 @@ async function runSetup(): Promise<null | Error> {
   core.info(cp.execSync(`${binaryPath} --version`).toString());
 
   if (installOnly != "true") {
-    
+    const command = core.getInput("command");
+    if (command === "") {
+      return {
+        message: "a command was not provided",
+      };
+    }
+
+    if (["validate", "run", "format", "lineage"].includes(command)) {
+      return {
+        message: "a command was provided is not supported by the action, Please provide a command like run, validate, format and lineage",
+      };
+    }
+
+    const args = core.getInput("args");
+    if (args === "") {
+      core.warning("a args was not provided")
+    }
+
+    await runCommand(binaryPath, command, args)
   }
   return null;
+}
+
+
+async function runCommand(bruinPath: string, command: string, args: string) {
+  core.debug("Running command")
+  await exec.exec(bruinPath, [command, args]);
 }

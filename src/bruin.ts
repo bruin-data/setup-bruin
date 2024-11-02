@@ -6,13 +6,8 @@ import { Octokit } from "@octokit/core";
 import { Error, isError } from "./error";
 import { HttpsProxyAgent } from "https-proxy-agent";
 
-// versionPrefix is used in Github release names, and can
-// optionally be specified in the action's version parameter.
-const versionPrefix = "v";
-
 export async function getBruin(
   version: string,
-  install_only: string,
 ): Promise<string | Error> {
   const binaryPath = tc.find("bruin", version, os.arch());
   if (binaryPath !== "") {
