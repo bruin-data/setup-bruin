@@ -18,8 +18,6 @@ export async function getBruin(
   core.info(`Resolving the download URL for the current platform...`);
   const downloadURL = await getDownloadURL(version);
 
-  core.debug(`Download URL resolved: ${downloadURL}`);
-
   if (isError(downloadURL)) {
     return downloadURL;
   }
@@ -38,7 +36,7 @@ export async function getBruin(
 
     core.info("Adding bruin to the cache...");
     cacheDir = await tc.cacheDir(
-      path.join(extractPath, "bruin"),
+      extractPath,
       "bruin",
       version,
       os.arch(),
@@ -51,7 +49,6 @@ export async function getBruin(
       downloadURL,
       "C:\\Users\\runneradmin\\bruin-download\\bruin.zip",
     );
-
        
     core.info(
       `Successfully downloaded bruin version "${version}" from ${downloadURL} to ${downloadPath}`,
@@ -62,7 +59,7 @@ export async function getBruin(
     
     core.info("Adding bruin to the cache...");
     cacheDir = await tc.cacheDir(
-      path.dirname(extractPath),
+      extractPath,
       "bruin",
       version,
       os.arch(),
@@ -117,10 +114,11 @@ async function getDownloadURL(
 
   // For Windows, we only download the .exe for `bruin` CLI
   if (platform === "Windows") {
-    assetName = `bruin-${platform}-${architecture}.zip`;
+    assetName = `bruin_${platform}_${architecture}.zip`;
   } else {
-    assetName = `bruin-${platform}-${architecture}.tar.gz`;
+    assetName = `bruin_${platform}_${architecture}.tar.gz`;
   }
+
   const requestAgent = process.env.http_proxy
     ? new HttpsProxyAgent(process.env.http_proxy)
     : undefined;

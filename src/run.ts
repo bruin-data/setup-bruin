@@ -44,11 +44,7 @@ async function runSetup(): Promise<null | Error> {
 
   core.info("Adding bruin binary to PATH");
   let binaryPath = "";
-  if (os.platform() === "win32") {
-    core.addPath(installDir);
-  } else {
-    core.addPath(path.join(installDir, "bin"));
-  }
+  core.addPath(installDir);
   binaryPath = await io.which("bruin", true);
   if (binaryPath === "") {
     return {
