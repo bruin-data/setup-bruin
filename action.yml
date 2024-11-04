@@ -1,4 +1,4 @@
-name: "bruin-setup"
+name: "setup-bruin"
 description: >
   Install bruin for use in other jobs.
 branding:

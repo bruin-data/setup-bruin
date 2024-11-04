@@ -1,5 +1,5 @@
 {
-  "name": "bruin-setup",
+  "name": "setup-bruin",
   "version": "1.0.0",
   "scripts": {
     "build": "esbuild --minify --bundle --sourcemap '--define:process.env.NODE_ENV=\"production\"' --outdir=dist --platform=node --target=node20 ./src/main.ts",

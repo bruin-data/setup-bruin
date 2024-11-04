@@ -1,21 +1,21 @@
-# `bruin-setup-action`
+# `setup-bruin`
 This [Action] installs the [`bruin`][bruin-cli] CLI in your GitHub Actions pipelines so that it can be
 used by other Bruin Actions:
 
 
-After `bruin-setup-action` is run, the `bruin` command is available to other Actions in the pipeline's
+After `setup-bruin` is run, the `bruin` command is available to other Actions in the pipeline's
 `PATH`. You can also use the `bruin` command directly inside of workflow steps.
 
 ## Usage
 
-Here's an example usage of `bruin-setup-action`:
+Here's an example usage of `setup-bruin`:
 
 ```yaml
 steps:
   # Run `git checkout`
   - uses: actions/checkout@v2
   # Install the `bruin` CLI
-  - uses: bruin-data/bruin-setup-action@main
+  - uses: bruin-data/setup-bruin@main
   # Ensure that `bruin` is installed
   - run: bruin --version
 ```
@@ -24,7 +24,7 @@ steps:
 
 ### Input
 
-You can configure `bruin-setup-action` with these parameters:
+You can configure `setup-bruin` with these parameters:
 
 | Parameter      | Description                                        | Default            |
 |:---------------|:---------------------------------------------------|:-------------------|
@@ -39,7 +39,7 @@ If `version` is unspecified, the latest version of `bruin` is installed:
 steps:
   - uses: actions/checkout@v2
   # Installs latest
-  - uses: bruin-data/bruin-setup-action@main
+  - uses: bruin-data/setup-bruin@main
   - run: bruin --version
 ```
 
@@ -49,7 +49,7 @@ Use the `version` parameter to pin to a specific version:
 steps:
   - uses: actions/checkout@v2
   # Installs version 0.11.52
-  - uses: bruin-data/bruin-setup-action@main
+  - uses: bruin-data/setup-bruin@main
     with:
       version: 0.11.52
   # Should output 0.11.52
@@ -62,7 +62,7 @@ recommended:
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  - uses: bruin-data/bruin-setup-action@main
+  - uses: bruin-data/setup-bruin@main
     with:
       version: latest
   - run: bruin --version
@@ -76,7 +76,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     # Installs latest
-    - uses: bruin-data/bruin-setup-action@main
+    - uses: bruin-data/setup-bruin@main
     - run: bruin validate ./bruin-pipeline/
       name: Validate Pipeline
     - run: bruin format ./bruin-pipeline/
