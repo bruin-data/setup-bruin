@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
       # Installs latest
       - uses: bruin-data/bruin-setup-action@main
-      - run: bruin init
+      - run: bruin init default
       - run: bruin validate ./bruin-pipeline/
         name: Validate Pipeline
       - run: bruin format ./bruin-pipeline/
