@@ -1,10 +1,8 @@
 # `setup-bruin`
-This [Action] installs the [`bruin`][bruin-cli] CLI in your GitHub Actions pipelines so that it can be
-used by other Bruin Actions:
+This [Action](https://github.com/marketplace/actions/bruin-setup) installs the [`bruin`](https://github.com/bruin-data/bruin) CLI in your GitHub Actions pipelines so that it can be used by other Bruin Actions:
 
 
-After `setup-bruin` is run, the `bruin` command is available to other Actions in the pipeline's
-`PATH`. You can also use the `bruin` command directly inside of workflow steps.
+After `setup-bruin` is run, the `bruin` command is available to other Actions in the pipeline's `PATH`. You can also use the `bruin` command directly inside of workflow steps.
 
 ## Usage
 
@@ -28,7 +26,7 @@ You can configure `setup-bruin` with these parameters:
 
 | Parameter      | Description                                        | Default            |
 |:---------------|:---------------------------------------------------|:-------------------|
-| `version`      | The version of the [`bruin` CLI][bruin-cli] to install | [`latest`][version] |
+| `version`      | The version of the [`bruin`](https://github.com/bruin-data/bruin)  to install | [`latest`](https://github.com/bruin-data/bruin/releases) |
 
 > These parameters are derived from [`action.yml`](./action.yml). <br>
 #### Version
