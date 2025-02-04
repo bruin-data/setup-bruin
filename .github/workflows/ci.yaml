@@ -18,5 +18,9 @@ jobs:
           node-version: '20'
       - name: NPM install
         run: npm install
+      - name: Unit Test
+        run: npx jest
       - name: NPM Build
         run: npm run build 
+
+

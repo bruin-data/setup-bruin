@@ -6,7 +6,6 @@ import * as io from "@actions/io";
 import { getBruin } from "./bruin";
 import { Error, isError } from "./error";
 
-
 export async function run(): Promise<void> {
   try {
     const result = await runSetup();
@@ -28,7 +27,7 @@ export async function run(): Promise<void> {
 
 // runSetup runs the bruin-setup action, and returns
 // a non-empty error if it fails.
-async function runSetup(): Promise<null | Error> {
+export async function runSetup(): Promise<null | Error> {
   const version = core.getInput("version");
   if (version === "") {
     return {
