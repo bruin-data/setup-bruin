@@ -8,6 +8,7 @@ import { HttpsProxyAgent } from "https-proxy-agent";
 
 export async function getBruin(
   version: string,
+  token?: string,
 ): Promise<string | Error> {
   const binaryPath = tc.find("bruin", version, os.arch());
   if (binaryPath !== "") {
@@ -16,7 +17,7 @@ export async function getBruin(
   }
 
   core.info(`Resolving the download URL for the current platform...`);
-  const downloadURL = await getDownloadURL(version);
+  const downloadURL = await getDownloadURL(version, token);
 
   if (isError(downloadURL)) {
     return downloadURL;
@@ -72,7 +73,8 @@ export async function getBruin(
 // getDownloadURL resolves Bruin's Github download URL for the
 // current architecture and platform.
 async function getDownloadURL(
-  version: string
+  version: string,
+  token?: string,
 ): Promise<string | Error> {
   let architecture = "";
   switch (os.arch()) {
@@ -123,6 +125,7 @@ async function getDownloadURL(
     ? new HttpsProxyAgent(process.env.http_proxy)
     : undefined;
   const octokit = new Octokit({
+    auth: token,
     request: {
       agent: requestAgent,
     },

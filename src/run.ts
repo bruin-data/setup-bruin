@@ -35,8 +35,11 @@ export async function runSetup(): Promise<null | Error> {
     };
   }
 
+  // Use token input or fall back to GITHUB_TOKEN (provided automatically in Actions)
+  const token = core.getInput("token") || process.env.GITHUB_TOKEN || undefined;
+
   core.info(`Setting up bruin version "${version}"`);
-  const installDir = await getBruin(version);
+  const installDir = await getBruin(version, token);
   if (isError(installDir)) {
     return installDir;
   }
