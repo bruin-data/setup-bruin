@@ -9,6 +9,12 @@ inputs:
     description: The version of bruin to set up.
     required: false
     default: 'latest'
+  token:
+    description: >
+      GitHub token for API requests (e.g. to list releases and resolve download URLs).
+      Defaults to the workflow GITHUB_TOKEN when not set. Use this to avoid API rate limits.
+    required: false
+    default: ''
 runs:
   using: "node20"
   main: "./dist/main.js"

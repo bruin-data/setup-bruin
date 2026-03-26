@@ -14,7 +14,6 @@ jobs:
     steps:
       - name: Setup repo
         uses: actions/checkout@v4
-      # Installs latest
       - uses: bruin-data/bruin-setup-action@main
       - run: bruin init default
       - run: bruin validate ./bruin-pipeline/

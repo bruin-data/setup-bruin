@@ -27,6 +27,7 @@ You can configure `setup-bruin` with these parameters:
 | Parameter      | Description                                        | Default            |
 |:---------------|:---------------------------------------------------|:-------------------|
 | `version`      | The version of the [`bruin`](https://github.com/bruin-data/bruin)  to install | [`latest`](https://github.com/bruin-data/bruin/releases) |
+| `token`        | GitHub token for API requests (avoids rate limits). When omitted, the workflow `GITHUB_TOKEN` is used automatically. | `GITHUB_TOKEN` (in Actions) |
 
 > These parameters are derived from [`action.yml`](./action.yml). <br>
 #### Version
