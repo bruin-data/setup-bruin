@@ -3,7 +3,6 @@ import * as io from "@actions/io";
 import * as cp from "child_process";
 import { run, runSetup } from "./run"; // Assuming the file is named setup.ts
 import { getBruin } from "./bruin";
-import { Error } from "./error";
 
 jest.mock("@actions/core");
 jest.mock("@actions/io");
@@ -25,7 +24,9 @@ describe("runSetup", () => {
 
   it("should return an error if getBruin fails", async () => {
     (core.getInput as jest.Mock).mockReturnValue("1.0.0");
-    (getBruin as jest.Mock).mockResolvedValue({ message: "failed to download" });
+    (getBruin as jest.Mock).mockResolvedValue({
+      message: "failed to download",
+    });
 
     const result = await runSetup();
 
@@ -52,7 +53,9 @@ describe("runSetup", () => {
 
     expect(result).toBeNull();
     expect(core.addPath).toHaveBeenCalledWith("/mock/path");
-    expect(core.info).toHaveBeenCalledWith("Successfully setup bruin version 1.0.0");
+    expect(core.info).toHaveBeenCalledWith(
+      "Successfully setup bruin version 1.0.0",
+    );
   });
 });
 

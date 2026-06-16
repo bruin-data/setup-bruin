@@ -1,5 +1,4 @@
 import * as os from "os";
-import * as path from "path";
 import * as core from "@actions/core";
 import * as tc from "@actions/tool-cache";
 import { Octokit } from "@octokit/core";
@@ -36,35 +35,24 @@ export async function getBruin(
     core.info(`Successfully extracted bruin to ${extractPath}`);
 
     core.info("Adding bruin to the cache...");
-    cacheDir = await tc.cacheDir(
-      extractPath,
-      "bruin",
-      version,
-      os.arch(),
-    );
+    cacheDir = await tc.cacheDir(extractPath, "bruin", version, os.arch());
   } else {
-
-     // For Windows, we only download the .exe for `bruin` CLI becasue we do not create `.tar.gz`
+    // For Windows, we only download the .exe for `bruin` CLI becasue we do not create `.tar.gz`
     // bundles for Windows releases.
     const downloadPath = await tc.downloadTool(
       downloadURL,
       "C:\\Users\\runneradmin\\bruin-download\\bruin.zip",
     );
-       
+
     core.info(
       `Successfully downloaded bruin version "${version}" from ${downloadURL} to ${downloadPath}`,
     );
 
     const extractPath = await tc.extractZip(downloadPath);
     core.info(`Successfully extracted bruin to ${extractPath}`);
-    
+
     core.info("Adding bruin to the cache...");
-    cacheDir = await tc.cacheDir(
-      extractPath,
-      "bruin",
-      version,
-      os.arch(),
-    );
+    cacheDir = await tc.cacheDir(extractPath, "bruin", version, os.arch());
   }
   core.info(`Successfully cached bruin to ${cacheDir}`);
   return cacheDir;
@@ -112,7 +100,6 @@ async function getDownloadURL(
   // The asset name is determined by the bruin release structure found at:
   // https://github.com/bruin-data/bruin/blob/8255257bd94c9f1b5faa27242211c5caad05be79/make/bruin/scripts/release.bash#L102
   let assetName = "";
-
 
   // For Windows, we only download the .exe for `bruin` CLI
   if (platform === "Windows") {
