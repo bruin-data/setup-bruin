@@ -33,10 +33,14 @@
   },
   "overrides": {
     "@actions/http-client": {
-      "undici": "^6.27.0"
+      "undici": "^6.28.0"
     },
-    "@istanbuljs/load-nyc-config": {
-      "js-yaml": "^4.2.0"
+    "js-yaml": "^4.3.1",
+    "minimatch@3": {
+      "brace-expansion": "1.1.18"
+    },
+    "minimatch@9": {
+      "brace-expansion": "2.1.4"
     }
   }
 }
