@@ -48,6 +48,15 @@ checkgenerate:
 	@# Used in CI to verify that `make generate` doesn't produce a diff.
 	test -z "$$(git status --porcelain | tee /dev/stderr)"
 
+# Requires gh extension install github/gh-actions-lock.
+.PHONY: actions-lock
+actions-lock:
+	gh actions-lock
+
+.PHONY: actions-lock-verify
+actions-lock-verify:
+	gh actions-lock --verify
+
 node_modules: package-lock.json
 	npm ci
 
